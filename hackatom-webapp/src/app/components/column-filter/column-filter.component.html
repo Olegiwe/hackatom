@@ -1,0 +1,9 @@
+<p-columnFilter [field]="fieldName" display="menu" #columnFilter
+                [showOperator]="false"
+                [matchModeOptions]="setOptions()">
+  <ng-template *ngIf="isTypeDate()" pTemplate="filter" let-value let-filter="filterCallback">
+    <p-calendar dateFormat="dd.mm.yy" firstDayOfWeek="1"
+                [readonlyInput]="true"
+                [ngModel]="value" (ngModelChange)="filter($event)"></p-calendar>
+  </ng-template>
+</p-columnFilter>
