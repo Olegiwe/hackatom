@@ -1,0 +1,36 @@
+<p-table #table [value]="units" selectionMode="single" [(selection)]="selectedUnit" [columns]="columns"
+         [rowsPerPageOptions]="[10, 25, 50]"
+
+         [lazy]="true" (onLazyLoad)="onLazyLoad($event)" [loading]="loading"
+         [paginator]="true" [rows]="10" [totalRecords]="totalRecords"
+          [resizableColumns]="true" styleClass="p-datatable-gridlines"
+         [scrollable]="true" scrollHeight="500px"
+         columnResizeMode="expand">
+
+  <ng-template pTemplate="colgroup" let-columns>
+    <colgroup>
+      <col *ngFor="let col of columns" [style.width]="col.width">
+    </colgroup>
+  </ng-template>
+
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field" class="col-header">
+        {{col.header}}
+        <app-column-filter [type]="col.type" [fieldName]="col.field"></app-column-filter>
+        <p-sortIcon [field]="col.field"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-unit let-index="rowIndex">
+    <tr [pSelectableRow]="unit">
+      <td>{{unit.id}}</td>
+      <td>{{unit.name}}</td>
+      <td>{{unit.description}}</td>
+      <td [pTooltip]="unit.stationDesignation">{{unit.stationDesignation}}</td>
+      <td [pTooltip]="unit.workshopDesignation">{{unit.workshopDesignation}}</td>
+      <td [pTooltip]="unit.type">{{unit.type}}</td>
+      <td [pTooltip]="unit.system.name">{{unit.system.name}}</td>
+    </tr>
+  </ng-template>
+</p-table>
