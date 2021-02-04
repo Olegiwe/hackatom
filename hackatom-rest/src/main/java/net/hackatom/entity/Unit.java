@@ -23,9 +23,11 @@ public class Unit {
     private String workshopDesignation;
     private String type;
 
-    @ManyToOne
-    @JoinColumn(name = "systemId")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "systemId", insertable = false, updatable = false)
     private System system;
+
+    private Long systemId;
 
     @OneToMany(mappedBy = "unit", cascade = CascadeType.ALL)
     List<Defect> defects;

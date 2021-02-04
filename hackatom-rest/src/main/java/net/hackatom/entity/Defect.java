@@ -19,7 +19,7 @@ public class Defect {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "unitId")
+    @JoinColumn(name = "unitId", insertable = false, updatable = false)
     Unit unit;
 
     private String number;

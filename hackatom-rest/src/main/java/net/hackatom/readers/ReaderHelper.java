@@ -188,7 +188,7 @@ public class ReaderHelper {
                         .getSimpleName().toLowerCase(Locale.ROOT), e -> e));
         for (Field field : clazz.getDeclaredFields()) {
             field.setAccessible(true);
-            if (mapFields.containsKey(field.getName())) {
+            if (mapFields.containsKey(field.getName()) && !(mapFields.get(field.getName()) instanceof EntityPath)) {
                 if (field.getType().isAssignableFrom(List.class)) {
                     try {
                         Class<?> elClass = Class.forName(getClassName(field.getGenericType().getTypeName()));
@@ -207,11 +207,14 @@ public class ReaderHelper {
                     bindings.put(field.getName(), mapFields.get(field.getName()));
             } else {
                 String name = field.getType().getSimpleName().toLowerCase().replace("dto", "");
-                if (mapJoins.containsKey(name))
+                if (mapJoins.containsKey(name)) {
+                    joins.remove(0);
                     bindings.put(field.getName(),
                             Projections.bean(field.getType(),
-                                    getBindings( Class.forName(field.getType().getName()),
+                                    getBindings(Class.forName(field.getType().getName()),
                                             mapJoins.get(name), joins)));
+                }
+
             }
         }
         return bindings;
@@ -223,12 +226,12 @@ public class ReaderHelper {
             for (Field field : entity.getClass().getDeclaredFields()) {
                 field.setAccessible(true);
                 if (!field.getName().equalsIgnoreCase(entity.getType().getName())
-                        && field.get(entity) instanceof Expression<?>)
+                        && field.get(entity) instanceof Expression<?> && !(field.get(entity) instanceof EntityPath))
                     map.put(field.getName(), (Expression<?>) field.get(entity));
             }
 
-        } catch (Exception ignored) {
-            throw new RuntimeException("Problem with bindings");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return map;
     }
