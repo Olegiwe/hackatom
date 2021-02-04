@@ -16,7 +16,10 @@ export class AppComponent {
     {
       label: 'Дефекты',
       routerLink: 'defect-list'
+    },
+    {
+      label: 'Схема',
+      routerLink: 'schema'
     }
-
   ];
 }

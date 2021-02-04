@@ -1,6 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ColumnFilterComponent} from './components/column-filter/column-filter.component';
@@ -15,26 +14,27 @@ import {MenuModule} from 'primeng/menu';
 import {MenubarModule} from 'primeng/menubar';
 import {ToolbarModule} from 'primeng/toolbar';
 import { DefectListComponent } from './components/defect-list/defect-list.component';
+import {SchemaComponent} from "./components/schema/schema.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     ColumnFilterComponent,
+    SchemaComponent,
     UnitListComponent,
     DefectListComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     CalendarModule,
     TableModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
     TooltipModule,
     HttpClientModule,
     MenuModule,
     MenubarModule,
     ToolbarModule
-
   ],
   providers: [],
   bootstrap: [AppComponent]

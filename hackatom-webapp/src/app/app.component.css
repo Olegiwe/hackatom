@@ -10,6 +10,10 @@
   background: steelblue;
 }
 
+:host ::ng-deep .p-menuitem {
+  padding-left: 15px;
+}
+
 :host ::ng-deep .p-menuitem-text {
   color: white!important;
 }
