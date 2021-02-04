@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {GlobalService} from '../../services/global.service';
+import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-schema',
@@ -7,21 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SchemaComponent implements OnInit {
 
+  image: string;
+  imagePath: SafeResourceUrl;
 
-  constructor() { }
+  constructor(
+    private globalService: GlobalService,
+    private domSanitizer: DomSanitizer
+  ) { }
 
-  ngOnInit(): void {
-    const options = {
-      density: 100,
-      saveFilename: "untitled",
-      savePath: "./images",
-      format: "png",
-      width: 600,
-      height: 600
-    };
+  async ngOnInit(): Promise<void> {
+    const respBlob = await this.globalService.getSchemaFromPdf(778);
+    const imgBlob = respBlob.body;
+    const reader = new FileReader();
 
+    reader.addEventListener('loadend', event => {
+      this.image = event.target.result.toString();
+      console.log(this.image);
+    });
 
-
+    reader.readAsText(imgBlob);
+    this.imagePath = this.domSanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + this.image);
   }
 
 }

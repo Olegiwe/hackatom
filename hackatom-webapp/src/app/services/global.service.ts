@@ -34,4 +34,9 @@ export class GlobalService {
     return params;
   }
 
+  async getSchemaFromPdf(id: number) {
+    const params = new HttpParams();
+    return this.http.get(`${this.restPath}/schemas/${id}`,{ observe: 'response', responseType: 'blob'}).toPromise();
+  }
+
 }
