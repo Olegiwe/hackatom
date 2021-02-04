@@ -21,6 +21,7 @@ public class Defect {
     @ManyToOne
     @JoinColumn(name = "unitId", insertable = false, updatable = false)
     Unit unit;
+    private Long unitId;
 
     private String number;
     private LocalDate date;

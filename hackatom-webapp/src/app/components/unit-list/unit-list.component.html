@@ -1,3 +1,13 @@
+
+<p-toolbar>
+    <div class="p-toolbar-group-left">
+      <p-button label="New" icon="pi pi-plus"></p-button>
+      <p-button label="Upload" icon="pi pi-upload" styleClass="p-button-success"></p-button>
+
+      <i class="pi pi-bars"></i>
+
+    </div>
+</p-toolbar>
 <p-table #table [value]="units" selectionMode="single" [(selection)]="selectedUnit" [columns]="columns"
          [rowsPerPageOptions]="[10, 25, 50]"
 

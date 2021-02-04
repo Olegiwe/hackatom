@@ -7,6 +7,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import lombok.SneakyThrows;
+import net.hackatom.Dto.Page;
 import net.hackatom.Dto.PageFilter;
 import net.hackatom.Dto.QueryModifier;
 import org.apache.commons.lang3.StringUtils;
@@ -48,6 +49,21 @@ public class ReaderHelper {
     public <T> List<T> selectDto(Class<T> clazz, JPAQuery<?> query, QueryModifier modifier) {
         query = setQueryModifier(query, modifier);
         return selectDto(clazz, query);
+    }
+
+    @SneakyThrows
+    public <T> Page<T> selectPage(Class<T> clazz, JPAQuery<?> query, QueryModifier modifier) {
+        Page<T> page = new Page<>();
+        query = setQueryModifier(query, modifier);
+        List<EntityPath<?>> joins = query.getMetadata().getJoins()
+                .stream().map(e -> (EntityPath<?>) e.getTarget()).collect(Collectors.toList());
+        EntityPath<?> root = joins.get(0);
+        Expression<?> id = (Expression<?>) root.getClass().getField("id").get(root);
+
+        page.setTotal(query.fetchCount());
+        page.setPayload(query.transform(groupBy(id)
+                .list(Projections.bean(clazz, getBindings(clazz, root, joins)))));
+        return page;
     }
 
     public JPAQuery<?> setQueryModifier(JPAQuery<?> query, QueryModifier modifier) {

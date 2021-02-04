@@ -11,12 +11,17 @@ import { UnitListComponent } from './components/unit-list/unit-list.component';
 import {TooltipModule} from 'primeng/tooltip';
 import {GlobalService} from './services/global.service';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {MenuModule} from 'primeng/menu';
+import {MenubarModule} from 'primeng/menubar';
+import {ToolbarModule} from 'primeng/toolbar';
+import { DefectListComponent } from './components/defect-list/defect-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ColumnFilterComponent,
-    UnitListComponent
+    UnitListComponent,
+    DefectListComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +30,10 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
     TableModule,
     BrowserAnimationsModule,
     TooltipModule,
-    HttpClientModule
+    HttpClientModule,
+    MenuModule,
+    MenubarModule,
+    ToolbarModule
 
   ],
   providers: [],

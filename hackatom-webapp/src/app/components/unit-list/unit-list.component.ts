@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {GlobalService} from '../../services/global.service';
 import {Unit} from '../domain/Unit';
 import {HttpClient} from '@angular/common/http';
+import {QueryModifier} from '../domain/QueryModifier';
+import {PageFilter} from '../domain/PageFilter';
 
 @Component({
   selector: 'app-unit-list',
@@ -24,6 +26,7 @@ export class UnitListComponent implements OnInit {
     {header: 'Тип', field: 'type', type: 'text', width: '6%'},
     {header: 'Система', field: 'system.name', type: 'text', width: '6%'},
   ];
+  modifier: QueryModifier;
 
 
   constructor(private service: GlobalService,
@@ -34,10 +37,22 @@ export class UnitListComponent implements OnInit {
   }
 
   async loadData() {
-    this.units = await this.service.getUnitList();
+    const page = await this.service.getUnitList(this.modifier);
+    this.units = page.payload;
+    this.totalRecords = page.total;
   }
 
-  onLazyLoad(event: any) {
-
+  async onLazyLoad(event: any) {
+    const modifier = new QueryModifier();
+    modifier.offset = event.first;
+    modifier.limit = event.rows;
+    modifier.sortField = event.sortField;
+    modifier.sortOrder = event.sortOrder;
+    Object.keys(event.filters).forEach(key => {
+      modifier.filters.push(new PageFilter(key, event.filters[key].map(e => e.value), event.filters[key].map(e => e.matchMode)));
+    });
+    this.modifier = modifier;
+    console.log(modifier, event);
+    await this.loadData();
   }
 }
