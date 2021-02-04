@@ -1,0 +1,48 @@
+
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <p-button label="New" icon="pi pi-plus"></p-button>
+    <p-button label="Upload" icon="pi pi-upload" styleClass="p-button-success"></p-button>
+
+    <i class="pi pi-bars"></i>
+
+  </div>
+</p-toolbar>
+<p-table #table [value]="defects" selectionMode="single" [(selection)]="selectedDefect" [columns]="columns"
+         [rowsPerPageOptions]="[10, 25, 50]" [style]="{'overflow':'auto!important'}"
+         [responsive]="true"
+         [lazy]="true" (onLazyLoad)="onLazyLoad($event)" [loading]="loading"
+         [paginator]="true" [rows]="10" [totalRecords]="totalRecords"
+         [resizableColumns]="true" styleClass="p-datatable-gridlines"
+         [scrollable]="true" scrollHeight="500px" [autoLayout]="true"
+         columnResizeMode="expand">
+
+  <ng-template pTemplate="colgroup" let-columns>
+    <colgroup>
+      <col *ngFor="let col of columns" [style.width]="col.width">
+    </colgroup>
+  </ng-template>
+
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field" class="col-header">
+        {{col.header}}
+        <app-column-filter [type]="col.type" [fieldName]="col.field"></app-column-filter>
+        <p-sortIcon [field]="col.field"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-defect let-index="rowIndex">
+    <tr [pSelectableRow]="defect">
+      <td>{{defect.id}}</td>
+      <td>{{defect.number}}</td>
+      <td>{{defect.date | date:'dd.MM.yyyy'}}</td>
+      <td [pTooltip]="defect.status">{{defect.status}}</td>
+      <td [pTooltip]="defect.regPerson">{{defect.regPerson}}</td>
+      <td [pTooltip]="defect.responsible">{{defect.responsible}}</td>
+      <td [pTooltip]="defect.unit.name">{{defect.unit.name}}</td>
+      <td [pTooltip]="defect.description">{{defect.description}}</td>
+      <td [pTooltip]="defect.result">{{defect.result}}</td>
+    </tr>
+  </ng-template>
+</p-table>

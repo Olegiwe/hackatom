@@ -1,0 +1,23 @@
+:host ::ng-deep .hackatom-img:hover {
+  transform: scale(1.1);
+}
+
+:host ::ng-deep .hackatom-img {
+  transition: 0.5s;
+}
+
+:host ::ng-deep .p-menubar {
+  background: steelblue;
+}
+
+:host ::ng-deep .p-menuitem-text {
+  color: white!important;
+}
+
+:host ::ng-deep .p-menuitem:hover .p-menuitem-text {
+  color: black!important;
+}
+
+:host  ::ng-deep .p-toolbar {
+  background: #fff5ee !important;
+}

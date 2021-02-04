@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {MenuItem} from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'hackatom-webapp';
+  items: MenuItem[] = [
+    {
+      label: 'Узлы',
+      routerLink: 'unit-list'
+    },
+    {
+      label: 'Дефекты',
+      routerLink: 'defect-list'
+    }
+
+  ];
 }

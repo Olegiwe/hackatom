@@ -2,6 +2,8 @@ package net.hackatom.readers;
 
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import net.hackatom.Dto.DefectDto;
+import net.hackatom.Dto.Page;
 import net.hackatom.Dto.QueryModifier;
 import net.hackatom.Dto.UnitDto;
 import net.hackatom.entity.QAttachment;
@@ -44,8 +46,14 @@ public class GlobalReader {
     private static final QSystem system = QSystem.system;
     private static final QDefect defect = QDefect.defect;
 
-    public List<UnitDto> getUnits(QueryModifier modifier) {
-        return readerHelper.selectDto(UnitDto.class, getQuery().from(unit).leftJoin(system).on(unit.systemId.eq(system.id)), modifier);
+    public Page<?> getUnits(QueryModifier modifier) {
+        return readerHelper.selectPage(UnitDto.class, getQuery()
+                .from(unit).leftJoin(system).on(unit.systemId.eq(system.id)), modifier);
+    }
+
+    public Page<?> getDefects(QueryModifier modifier) {
+        return readerHelper.selectPage(DefectDto.class, getQuery()
+        .from(defect).leftJoin(unit).on(defect.unitId.eq(unit.id)), modifier);
     }
 
     private JPAQuery<?> getQuery() {
