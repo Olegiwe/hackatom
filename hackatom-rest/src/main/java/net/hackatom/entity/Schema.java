@@ -4,28 +4,21 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Attachment {
+public class Schema {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long systemId;
-    private Long unitId;
-    private Long defectId;
-    private Long schemaId;
-    private String name;
-    private byte[] file;
 
+    @OneToMany(mappedBy = "schema", cascade = CascadeType.ALL)
+    private Set<Region> regions;
 
-
-
-
-
+    @OneToOne(mappedBy = "schema_id")
+    private Attachment attachment;
 }

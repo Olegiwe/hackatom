@@ -28,6 +28,11 @@ public class Region {
     @JoinColumn(name = "unitId", insertable = false, updatable = false)
     private Unit unit;
 
-    //TODO: я допишу, нужна таблица со схемами
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "schemaId", nullable = false)
+    private Schema schema;
+
+    private String json;
+
 
 }
