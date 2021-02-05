@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Base64;
+
 @RestController
 @RequestMapping("api")
 @CrossOrigin
@@ -30,8 +32,8 @@ public class GlobalController {
     }
 
     @GetMapping(value = "schemas/{id}", produces = "text/plain")
-    public byte[] getSchemaAsImage(Long id) {
-        return this.schemaService.getImage(id);
+    public byte[] getSchemaAsImage(@PathVariable Long id) {
+        return Base64.getDecoder().decode(this.schemaService.getImageFromPdf(id));
     }
 
 }
