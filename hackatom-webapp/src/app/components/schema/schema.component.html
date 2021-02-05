@@ -1,2 +1,37 @@
 <p>schema works!</p>
-<img [src]="imagePath">
+<div>
+  <button pButton label="Большая схема (id = 500)"
+          style="background-color: #4682b4"
+          (click)="onRequest(500)"
+          [disabled]="isPending">
+  </button>
+  <button pButton label="Малая схема (id = 600)"
+          style="margin-left: 15px; background-color: #4682b4"
+          (click)="onRequest(600)"
+          [disabled]="isPending">
+  </button>
+</div>
+<hr>
+<div *ngIf="isPending && !src">
+  <p-dialog header="Подождите" [visible]="isDialogVisible"
+            [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+            [draggable]="false" [resizable]="false" [closable]="false">
+    <p class="p-m-0">Первое обращение к схеме может быть медленным. Пожалуйста, дождитесь конца загрузки.</p>
+  </p-dialog>
+</div>
+
+
+
+<div [ngStyle]="{visibility: (!!src ? 'visible' : 'hidden') , position: 'relative' }"  >
+  <canvas #schema width="1000px" height="1000px" (click)="recordCoordinates($event)" [ngStyle]="{position: 'absolute'}" >
+
+  </canvas>
+  <span *ngIf="selectedRegion.length > 1" [ngStyle]="{zIndex: 9999, position: 'absolute'}">
+    <button pButton label="Добавить компонент со схемы" (click)="addComponentFromScheme()"></button>
+  </span>
+
+
+</div>
+
+
+

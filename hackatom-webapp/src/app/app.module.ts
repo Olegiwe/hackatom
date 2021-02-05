@@ -15,6 +15,8 @@ import {MenubarModule} from 'primeng/menubar';
 import {ToolbarModule} from 'primeng/toolbar';
 import { DefectListComponent } from './components/defect-list/defect-list.component';
 import {SchemaComponent} from "./components/schema/schema.component";
+import {DialogModule} from "primeng/dialog";
+import { RegionAddComponent } from './components/region-add/region-add.component';
 
 @NgModule({
   declarations: [
@@ -22,20 +24,22 @@ import {SchemaComponent} from "./components/schema/schema.component";
     ColumnFilterComponent,
     SchemaComponent,
     UnitListComponent,
-    DefectListComponent
+    DefectListComponent,
+    RegionAddComponent
   ],
-  imports: [
-    BrowserModule,
-    CalendarModule,
-    TableModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    TooltipModule,
-    HttpClientModule,
-    MenuModule,
-    MenubarModule,
-    ToolbarModule
-  ],
+    imports: [
+        BrowserModule,
+        CalendarModule,
+        TableModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        TooltipModule,
+        HttpClientModule,
+        MenuModule,
+        MenubarModule,
+        ToolbarModule,
+        DialogModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

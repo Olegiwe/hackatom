@@ -12,3 +12,7 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+  cache:
+    jcache:
+      config: "classpath:cache/ehcache.xml"
