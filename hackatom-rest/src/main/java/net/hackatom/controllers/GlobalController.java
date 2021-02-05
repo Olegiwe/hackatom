@@ -33,7 +33,7 @@ public class GlobalController {
 
     @GetMapping(value = "schemas/{id}", produces = "text/plain")
     public byte[] getSchemaAsImage(@PathVariable Long id) {
-        return Base64.getDecoder().decode(this.schemaService.getImageFromPdf(id));
+        return schemaService.getImage(id);
     }
 
 }
