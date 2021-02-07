@@ -32,7 +32,7 @@ public class MainController {
 
     @GetMapping("save")
     public Book save() {
-        return bookRepository.save(new Book(2L, "NAME", 1L, Type.DIGIT));
+        return bookRepository.save(new Book(2L, "NAME",1L, 1L, Type.DIGIT));
     }
 
 

@@ -20,6 +20,7 @@ public class Book {
     Long id;
     String name;
     Long authorId;
+    Long coauthorId;
     @Enumerated(EnumType.STRING)
     Type type;
 

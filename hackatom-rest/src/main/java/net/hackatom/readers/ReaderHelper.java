@@ -201,7 +201,7 @@ public class ReaderHelper {
         var mapFields = getFieldMap(target);
         var mapJoins = joins
                 .stream().collect(Collectors.toMap(e -> e.getType()
-                        .getSimpleName().toLowerCase(Locale.ROOT), e -> e));
+                        .getSimpleName().toLowerCase(Locale.ROOT), e -> e, (e1, e2) -> e1));
         for (Field field : clazz.getDeclaredFields()) {
             field.setAccessible(true);
             if (mapFields.containsKey(field.getName()) && !(mapFields.get(field.getName()) instanceof EntityPath)) {

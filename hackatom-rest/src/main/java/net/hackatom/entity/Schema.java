@@ -10,6 +10,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class Schema {
 
     @Id
@@ -19,6 +20,6 @@ public class Schema {
     @OneToMany(mappedBy = "schema", cascade = CascadeType.ALL)
     private Set<Region> regions;
 
-    @OneToOne(mappedBy = "schema_id")
-    private Attachment attachment;
+    private Long attachmentId;
+    private Long anotherAttachmentId;
 }
